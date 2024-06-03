@@ -30,9 +30,10 @@ class Ejemplar extends Model
         $ejemplares = Prestamo::where('ejemplar_id', $this->id)->get();
 
         foreach ($ejemplares as $ejemplar) {
-            $fecha_pres = $ejemplar->fecha_hora;
-            $diferencia_dias = $now->diffInDays(Carbon::parse($fecha_pres), false);
+            $fecha_pres = Carbon::parse($ejemplar->fecha_hora);
+            $diferencia_dias = $fecha_pres->diffInDays($now, false);
 
+            // Si la diferencia es mayor a 30 días y es positiva (el préstamo está vencido)
             if ($diferencia_dias > 30) {
                 return 'vencido';
             }
@@ -40,4 +41,7 @@ class Ejemplar extends Model
 
         return 'no vencido';
     }
+
+
+
 }

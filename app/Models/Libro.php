@@ -50,6 +50,25 @@ class Libro extends Model
     }
 
 
+    public function fusiona_cod_prestado()
+    {
+        $ejemplares = Ejemplar::where('libro_id', $this->id)->get();
+        $nombres_ejemplares = '';
+        foreach ($ejemplares as $ejemplar) {
+            $cod = $ejemplar->codigo;
+            $nombre = $ejemplar->id;
+            $registros = Prestamo::where('ejemplar_id', $nombre)->exists();
+            if ($registros) {
+                $nombres_ejemplares .= '<li>' . $cod .'--> prestado' . '</li>';
+            } else {
+                $nombres_ejemplares .= '<li>' . $cod . '--> no prestado' . '</li>';
+            }
+        }
+        return $nombres_ejemplares ? '<ul>' . $nombres_ejemplares . '</ul>' : 'Sin ejemplares';
+    }
+
+
+
     public function fecha_prestamo()
     {
         $ejemplares = Ejemplar::where('libro_id', $this->id)->get();

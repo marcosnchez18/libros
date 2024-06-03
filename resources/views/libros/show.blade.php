@@ -28,6 +28,10 @@
                     </th>
 
                     <th class="px-6 py-3">
+                        Código Ejemplar-Prestado Fusinados
+                    </th>
+
+                    <th class="px-6 py-3">
                         Fecha prestamo
                     </th>
 
@@ -58,6 +62,11 @@
                     <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                         {!! $libro->esta_prestado() !!}
                     </th>
+                    <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        {!! $libro->fusiona_cod_prestado() !!}
+                    </th>
+
+
 
                     <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                         {!! $libro->fecha_prestamo() !!}

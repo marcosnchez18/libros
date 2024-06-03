@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ejemplar;
 use App\Models\Libro;
 use Illuminate\Http\Request;
 
@@ -86,6 +87,13 @@ class LibroController extends Controller
      */
     public function destroy(Libro $libro)
     {
+        $r1 = Ejemplar::where('libro_id', $libro->id)->count();
+
+        if ($r1 > 0) {
+            session()->flash('error', 'No se puede borrar un libro con ejemplares asignados');
+            return redirect()->route('libros.index');   //sin esto no funcionaría
+        }
+
         $libro->delete();
         session()->flash('success', 'La película se ha eliminado correctamente.');
         return redirect()->route('libros.index');
